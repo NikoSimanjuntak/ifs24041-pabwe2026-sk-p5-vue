@@ -133,8 +133,12 @@ async function onDeleteAll() {
         class="flex flex-col overflow-hidden rounded-2xl border border-line bg-white"
         data-testid="aucation-card"
       >
-        <RouterLink :to="`/aucations/${item.id}`" class="block aspect-[16/10] bg-teal-wash">
-          <img v-if="item.cover" :src="item.cover" :alt="`Cover ${item.title}`" class="h-full w-full object-cover" />
+        <RouterLink
+          :to="`/aucations/${item.id}`"
+          :aria-label="`Lihat detail ${item.title}`"
+          class="block aspect-[16/10] bg-teal-wash"
+        >
+          <img v-if="item.cover" :src="item.cover" :alt="`Cover ${item.title}`" decoding="async" class="h-full w-full object-cover" />
           <span v-else class="flex h-full w-full items-center justify-center text-teal-mid/50">
             <Gavel :size="44" />
           </span>

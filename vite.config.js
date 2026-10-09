@@ -18,6 +18,10 @@ export default defineConfig(({ mode }) => {
         env.VITE_DELCOM_BASEURL || 'https://open-api.delcom.org/api/v1',
       ),
     },
+    build: {
+      target: 'esnext',
+      sourcemap: true,
+    },
     server: {
       port: Number(env.APP_PORT) || 5173,
     },

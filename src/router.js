@@ -1,38 +1,29 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { getAccessToken } from '@/helpers/apiHelper'
-import AuthLayout from '@/features/auth/layouts/AuthLayout.vue'
-import LoginPage from '@/features/auth/pages/LoginPage.vue'
-import RegisterPage from '@/features/auth/pages/RegisterPage.vue'
-import AucationLayout from '@/features/aucations/layouts/AucationLayout.vue'
-import HomePage from '@/features/aucations/pages/HomePage.vue'
-import DetailPage from '@/features/aucations/pages/DetailPage.vue'
-import UsersPage from '@/features/users/pages/UsersPage.vue'
-import ProfilePage from '@/features/users/pages/ProfilePage.vue'
-import NotFoundPage from '@/features/common/pages/NotFoundPage.vue'
 
 export const routes = [
   {
     path: '/auth',
-    component: AuthLayout,
+    component: () => import('@/features/auth/layouts/AuthLayout.vue'),
     meta: { guestOnly: true },
     children: [
       { path: '', redirect: '/auth/login' },
-      { path: 'login', name: 'login', component: LoginPage },
-      { path: 'register', name: 'register', component: RegisterPage },
+      { path: 'login', name: 'login', component: () => import('@/features/auth/pages/LoginPage.vue') },
+      { path: 'register', name: 'register', component: () => import('@/features/auth/pages/RegisterPage.vue') },
     ],
   },
   {
     path: '/',
-    component: AucationLayout,
+    component: () => import('@/features/aucations/layouts/AucationLayout.vue'),
     meta: { requiresAuth: true },
     children: [
-      { path: '', name: 'home', component: HomePage },
-      { path: 'aucations/:aucationId', name: 'detail', component: DetailPage },
-      { path: 'users', name: 'users', component: UsersPage },
-      { path: 'profile', name: 'profile', component: ProfilePage },
+      { path: '', name: 'home', component: () => import('@/features/aucations/pages/HomePage.vue') },
+      { path: 'aucations/:aucationId', name: 'detail', component: () => import('@/features/aucations/pages/DetailPage.vue') },
+      { path: 'users', name: 'users', component: () => import('@/features/users/pages/UsersPage.vue') },
+      { path: 'profile', name: 'profile', component: () => import('@/features/users/pages/ProfilePage.vue') },
     ],
   },
-  { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFoundPage },
+  { path: '/:pathMatch(.*)*', name: 'not-found', component: () => import('@/features/common/pages/NotFoundPage.vue') },
 ]
 
 export function authGuard(to) {

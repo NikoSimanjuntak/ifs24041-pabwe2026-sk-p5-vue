@@ -1,4 +1,4 @@
-import { render } from '@testing-library/vue'
+import { render, waitFor } from '@testing-library/vue'
 import { createMemoryHistory, createRouter } from 'vue-router'
 import { createPinia, setActivePinia } from 'pinia'
 import Editor from '@toast-ui/editor'
@@ -45,7 +45,11 @@ export async function renderWithProviders(component, options = {}) {
 }
 
 /** Mengisi editor markdown palsu (modal tambah/ubah) seolah pengguna mengetik. */
-export function typeInEditor(text) {
+export async function typeInEditor(text) {
+  // editor dimuat secara lazy (async component), jadi tunggu sampai terpasang
+  await waitFor(() => {
+    if (!Editor.instances.length) throw new Error('Editor belum terpasang')
+  })
   const editor = Editor.instances.at(-1)
   editor.value = text
   editor.options.events.change()

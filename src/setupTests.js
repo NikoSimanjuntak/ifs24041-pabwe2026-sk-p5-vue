@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom/vitest'
 import { afterEach, vi } from 'vitest'
 import { cleanup } from '@testing-library/vue'
+import Editor from '@toast-ui/editor'
 
 // SweetAlert2 dimock agar tidak membuka dialog sungguhan saat pengujian.
 vi.mock('sweetalert2', () => ({
@@ -51,6 +52,7 @@ vi.mock('@toast-ui/editor/dist/toastui-editor-viewer', () => {
 
 afterEach(() => {
   cleanup()
+  Editor.instances.length = 0
   localStorage.clear()
   vi.clearAllMocks()
   vi.useRealTimers()

@@ -1,4 +1,8 @@
-import Swal from 'sweetalert2'
+// SweetAlert2 dimuat saat pertama kali dibutuhkan agar bundel awal tetap kecil
+async function fire(options) {
+  const { default: Swal } = await import('sweetalert2')
+  return Swal.fire(options)
+}
 
 const baseOptions = {
   confirmButtonColor: '#0f4c4a',
@@ -6,15 +10,15 @@ const baseOptions = {
 }
 
 export function showSuccessDialog(message, title = 'Berhasil') {
-  return Swal.fire({ ...baseOptions, icon: 'success', title, text: message, timer: 2200 })
+  return fire({ ...baseOptions, icon: 'success', title, text: message, timer: 2200 })
 }
 
 export function showErrorDialog(message, title = 'Terjadi kesalahan') {
-  return Swal.fire({ ...baseOptions, icon: 'error', title, text: message })
+  return fire({ ...baseOptions, icon: 'error', title, text: message })
 }
 
 export async function showConfirmDialog(message, title = 'Apakah kamu yakin?') {
-  const result = await Swal.fire({
+  const result = await fire({
     ...baseOptions,
     icon: 'warning',
     title,

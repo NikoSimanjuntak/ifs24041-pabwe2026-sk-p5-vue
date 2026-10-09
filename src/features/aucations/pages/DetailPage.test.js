@@ -49,7 +49,7 @@ describe('DetailPage', () => {
     expect(await screen.findByRole('heading', { name: 'Kamera Analog' })).toBeInTheDocument()
     expect(api.getAucation).toHaveBeenCalledWith('5')
     expect(screen.getByAltText('Cover Kamera Analog')).toHaveAttribute('src', 'https://img/5.png')
-    expect(Viewer.instances.at(-1).value).toBe('## Spesifikasi\nLensa 50mm')
+    await waitFor(() => expect(Viewer.instances.at(-1)?.value).toBe('## Spesifikasi\nLensa 50mm'))
     expect(screen.getByText(/Harga awal/)).toHaveTextContent(/100\.000/)
   })
 

@@ -12,7 +12,7 @@ const CLOSED_AT = '2099-01-01T10:00'
 
 async function fillForm(user, { title = 'Kamera Analog', description = 'Kamera tahun 1980', bid = '250000', closedAt = CLOSED_AT } = {}) {
   if (title) await user.type(screen.getByLabelText('Judul barang'), title)
-  if (description) typeInEditor(description)
+  if (description) await typeInEditor(description)
   if (bid) await user.type(screen.getByLabelText('Harga awal (Rp)'), bid)
   if (closedAt) await fireEvent.update(screen.getByLabelText('Ditutup pada'), closedAt)
 }
@@ -28,7 +28,7 @@ describe('AddModal', () => {
   it('menampilkan form saat terbuka', async () => {
     await renderWithProviders(AddModal, { props: { open: true } })
     expect(screen.getByRole('dialog', { name: 'Tambah lelang' })).toBeInTheDocument()
-    expect(screen.getByTestId('markdown-editor')).toBeInTheDocument()
+    expect(await screen.findByTestId('markdown-editor')).toBeInTheDocument()
   })
 
   it('menampilkan semua pesan validasi', async () => {

@@ -1,11 +1,13 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { defineAsyncComponent, ref, watch } from 'vue'
 import { X } from 'lucide-vue-next'
-import MarkdownEditor from '../MarkdownEditor.vue'
 import { useInput } from '@/hooks/useInput'
 import { useAucationsStore } from '../../states/aucationsStore'
 import { validateAucationForm } from '../../utils'
 import { showErrorDialog, showSuccessDialog } from '@/helpers/toolsHelper'
+
+// Editor Markdown (toast-ui) berat, jadi baru dimuat saat modal dibuka
+const MarkdownEditor = defineAsyncComponent(() => import('../MarkdownEditor.vue'))
 
 const props = defineProps({ open: { type: Boolean, default: false } })
 const emit = defineEmits(['close', 'saved'])

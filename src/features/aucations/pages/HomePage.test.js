@@ -152,7 +152,7 @@ describe('HomePage', () => {
     const user = userEvent.setup()
     await user.click(screen.getByRole('button', { name: 'Tambah lelang' }))
     await user.type(screen.getByLabelText('Judul barang'), 'Radio Tua')
-    typeInEditor('Radio tabung')
+    await typeInEditor('Radio tabung')
     await user.type(screen.getByLabelText('Harga awal (Rp)'), '75000')
     await fireEvent.update(screen.getByLabelText('Ditutup pada'), '2099-05-05T09:00')
     await user.click(within(screen.getByRole('dialog')).getByRole('button', { name: 'Tambah lelang' }))

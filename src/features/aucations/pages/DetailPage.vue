@@ -1,11 +1,10 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, defineAsyncComponent, ref, watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { ArrowLeft, Clock, Gavel, ImageUp, Pencil, Trash2, Undo2 } from 'lucide-vue-next'
 import ChangeModal from '../components/modals/ChangeModal.vue'
 import ChangeCoverModal from '../components/modals/ChangeCoverModal.vue'
 import BidModal from '../components/modals/BidModal.vue'
-import MarkdownViewer from '../components/MarkdownViewer.vue'
 import { useAucationsStore } from '../states/aucationsStore'
 import { useUsersStore } from '@/features/users/states/usersStore'
 import { useNow } from '@/hooks/useNow'
@@ -17,6 +16,9 @@ import {
   showErrorDialog,
   showSuccessDialog,
 } from '@/helpers/toolsHelper'
+
+// Viewer Markdown (toast-ui) berat, jadi dimuat terpisah dari halaman
+const MarkdownViewer = defineAsyncComponent(() => import('../components/MarkdownViewer.vue'))
 
 const route = useRoute()
 const router = useRouter()
