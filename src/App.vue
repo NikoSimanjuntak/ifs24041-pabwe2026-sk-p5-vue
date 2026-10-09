@@ -1,5 +1,4 @@
+
 <template>
-  <main id="main-content">
-    <RouterView />
-  </main>
+  <RouterView />
 </template>
