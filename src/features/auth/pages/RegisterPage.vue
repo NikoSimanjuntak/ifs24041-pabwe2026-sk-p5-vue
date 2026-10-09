@@ -35,9 +35,9 @@ async function onSubmit() {
 
     <form class="mt-8 space-y-5" novalidate @submit.prevent="onSubmit">
       <div>
-        <label for="name" class="mb-1.5 block text-sm font-semibold">Nama lengkap</label>
+        <label for="register-name-input" class="mb-1.5 block text-sm font-semibold">Nama lengkap</label>
         <input
-          id="name"
+          id="register-name-input"
           type="text"
           autocomplete="name"
           placeholder="Nama kamu"
@@ -50,9 +50,9 @@ async function onSubmit() {
       </div>
 
       <div>
-        <label for="email" class="mb-1.5 block text-sm font-semibold">Email</label>
+        <label for="register-email-input" class="mb-1.5 block text-sm font-semibold">Email</label>
         <input
-          id="email"
+          id="register-email-input"
           type="email"
           autocomplete="email"
           placeholder="nama@email.com"
@@ -65,9 +65,9 @@ async function onSubmit() {
       </div>
 
       <div>
-        <label for="password" class="mb-1.5 block text-sm font-semibold">Kata sandi</label>
+        <label for="register-password-input" class="mb-1.5 block text-sm font-semibold">Kata sandi</label>
         <input
-          id="password"
+          id="register-password-input"
           type="password"
           autocomplete="new-password"
           placeholder="Minimal 6 karakter"
@@ -80,9 +80,9 @@ async function onSubmit() {
       </div>
 
       <div>
-        <label for="confirmPassword" class="mb-1.5 block text-sm font-semibold">Konfirmasi kata sandi</label>
+        <label for="register-confirm-password-input" class="mb-1.5 block text-sm font-semibold">Konfirmasi kata sandi</label>
         <input
-          id="confirmPassword"
+          id="register-confirm-password-input"
           type="password"
           autocomplete="new-password"
           placeholder="Ulangi kata sandi"
@@ -96,7 +96,7 @@ async function onSubmit() {
         </p>
       </div>
 
-      <button type="submit" class="btn btn-primary w-full" :disabled="auth.isLoading">
+      <button id="register-submit-button" type="submit" class="btn btn-primary w-full" :disabled="auth.isLoading">
         <UserPlus :size="18" />
         {{ auth.isLoading ? 'Memproses…' : 'Daftar' }}
       </button>

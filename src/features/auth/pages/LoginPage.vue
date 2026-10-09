@@ -28,9 +28,9 @@ async function onSubmit() {
 
     <form class="mt-8 space-y-5" novalidate @submit.prevent="onSubmit">
       <div>
-        <label for="email" class="mb-1.5 block text-sm font-semibold">Email</label>
+        <label for="login-email-input" class="mb-1.5 block text-sm font-semibold">Email</label>
         <input
-          id="email"
+          id="login-email-input"
           type="email"
           autocomplete="email"
           placeholder="nama@email.com"
@@ -43,9 +43,9 @@ async function onSubmit() {
       </div>
 
       <div>
-        <label for="password" class="mb-1.5 block text-sm font-semibold">Kata sandi</label>
+        <label for="login-password-input" class="mb-1.5 block text-sm font-semibold">Kata sandi</label>
         <input
-          id="password"
+          id="login-password-input"
           type="password"
           autocomplete="current-password"
           placeholder="Masukkan kata sandi"
@@ -57,7 +57,7 @@ async function onSubmit() {
         <p v-if="auth.validation.password" class="mt-1.5 text-xs text-brick">{{ auth.validation.password }}</p>
       </div>
 
-      <button type="submit" class="btn btn-primary w-full" :disabled="auth.isLoading">
+      <button id="login-submit-button" type="submit" class="btn btn-primary w-full" :disabled="auth.isLoading">
         <LogIn :size="18" />
         {{ auth.isLoading ? 'Memproses…' : 'Masuk' }}
       </button>
