@@ -4,12 +4,31 @@ import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
 
+// Mengubah <link rel="stylesheet"> hasil build menjadi non-blocking
+// (preload lalu dipasang saat selesai), agar tidak menahan render pertama.
+function nonBlockingCss() {
+  return {
+    name: 'non-blocking-css',
+    apply: 'build',
+    transformIndexHtml: {
+      order: 'post',
+      handler: (html) =>
+        html.replace(
+          /<link rel="stylesheet"([^>]*?)href="([^"]+\.css)"([^>]*)>/g,
+          (_, before, href, after) =>
+            `<link rel="preload" as="style"${before}href="${href}"${after} onload="this.onload=null;this.rel='stylesheet'">` +
+            `<noscript><link rel="stylesheet"${before}href="${href}"${after}></noscript>`,
+        ),
+    },
+  }
+}
+
 export default defineConfig(({ mode }) => {
   // prefix '' agar variabel non-VITE_ (APP_PORT) ikut terbaca
   const env = loadEnv(mode, process.cwd(), '')
 
   return {
-    plugins: [vue(), tailwindcss()],
+    plugins: [vue(), tailwindcss(), nonBlockingCss()],
     resolve: {
       alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
     },
