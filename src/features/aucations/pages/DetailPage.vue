@@ -77,14 +77,17 @@ async function onCancelBid() {
       Kembali ke daftar lelang
     </RouterLink>
 
-    <p v-if="store.isAucation" class="mt-12 text-center text-sm text-ink-soft">Memuat detail lelang…</p>
+    <template v-if="store.isAucation">
+      <h1 class="sr-only">Detail lelang</h1>
+      <p class="mt-12 text-center text-sm text-ink-soft">Memuat detail lelang…</p>
+    </template>
 
     <div
       v-else-if="!item"
       class="mt-8 flex flex-col items-center rounded-2xl border border-dashed border-line bg-white px-6 py-16 text-center"
     >
       <Gavel :size="36" class="text-ink-soft" />
-      <p class="mt-3 font-semibold">Lelang tidak ditemukan</p>
+      <h1 class="mt-3 font-semibold">Lelang tidak ditemukan</h1>
       <p class="mt-1 text-sm text-ink-soft">Lelang ini mungkin sudah dihapus oleh pemiliknya.</p>
     </div>
 
