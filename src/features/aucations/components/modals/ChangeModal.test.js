@@ -33,7 +33,7 @@ describe('ChangeModal', () => {
     expect(screen.getByLabelText('Judul barang')).toHaveValue('Kamera Analog')
     expect(screen.getByLabelText('Harga awal (Rp)')).toHaveValue(250000)
     expect(screen.getByLabelText('Ditutup pada')).toHaveValue(toDateTimeLocal(aucation.closed_at))
-    expect(Editor.instances.at(-1).getMarkdown()).toBe('Deskripsi lama')
+    await waitFor(() => expect(Editor.instances.at(-1)?.getMarkdown()).toBe('Deskripsi lama'))
   })
 
   it('menampilkan pesan validasi saat data dikosongkan', async () => {
@@ -41,7 +41,7 @@ describe('ChangeModal', () => {
     const user = userEvent.setup()
     await user.clear(screen.getByLabelText('Judul barang'))
     await user.clear(screen.getByLabelText('Harga awal (Rp)'))
-    typeInEditor('')
+    await typeInEditor('')
     await user.click(screen.getByRole('button', { name: 'Simpan perubahan' }))
     expect(await screen.findByText('Judul wajib diisi.')).toBeInTheDocument()
     expect(screen.getByText('Deskripsi wajib diisi.')).toBeInTheDocument()
@@ -63,7 +63,7 @@ describe('ChangeModal', () => {
     const user = userEvent.setup()
     await user.clear(screen.getByLabelText('Judul barang'))
     await user.type(screen.getByLabelText('Judul barang'), 'Kamera Rangefinder')
-    typeInEditor('Deskripsi baru')
+    await typeInEditor('Deskripsi baru')
     await user.click(screen.getByRole('button', { name: 'Simpan perubahan' }))
 
     await waitFor(() => expect(emitted().saved).toHaveLength(1))
